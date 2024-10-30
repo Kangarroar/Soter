@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background"
+    tools:context=".login">
+
+    <!-- Logo -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/soter"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40sp"/>
+    </LinearLayout>
+
+    <!-- Mensaje de bienvenida -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Hola!"
+            android:textStyle="bold"
+            android:textColor="#3488AF"
+            android:textSize="26sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¡Qué bien verte!"
+            android:textColor="#3488AF"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+    <!-- Inputs de usuario y clave -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical"
+        android:paddingHorizontal="32dp">
+
+        <EditText
+            android:id="@+id/inputUsuario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Usuario"
+            android:inputType="text"
+            android:backgroundTint="#82CEEC"
+            android:textColorHint="#B0BEC5"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"
+            android:drawablePadding="8dp"
+            android:background="@drawable/custom_edittext" />
+
+        <EditText
+            android:id="@+id/inputClave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:backgroundTint="#82CEEC"
+            android:textColorHint="#B0BEC5"
+            android:padding="12dp"
+            android:layout_marginTop="12dp"
+            android:drawablePadding="8dp"
+            android:background="@drawable/custom_edittext" />
+    </LinearLayout>
+
+    <!-- Botón de iniciar sesión -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/botonIniciar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Iniciar Sesión"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:background="@drawable/custom_butt_hi"
+            />
+    </LinearLayout>
+
+</LinearLayout>

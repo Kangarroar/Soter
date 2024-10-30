@@ -1,0 +1,8 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.Soter" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/color_normal</item> <!-- Color primario para tu aplicación -->
+    </style>
+
+    <style name="Theme.Soter" parent="Base.Theme.Soter" />
+</resources>
