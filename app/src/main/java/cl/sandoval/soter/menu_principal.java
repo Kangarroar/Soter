@@ -56,7 +56,14 @@ public class menu_principal extends AppCompatActivity {
 //                startActivity(new Intent(menu_principal.this, camaras.class));
 //            }
 //        });
-
+        //SoterAlert Jumper
+        ImageView HiddenButt = findViewById(R.id.hiddenbutt);
+        HiddenButt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(menu_principal.this, chat.class));
+            }
+        });
 
     }
     private void setSaludoPersonalizado() {

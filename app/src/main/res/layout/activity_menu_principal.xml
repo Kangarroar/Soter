@@ -18,6 +18,7 @@
 
         <!-- Logo de la app -->
         <ImageView
+            android:id="@+id/hiddenbutt"
             android:layout_width="64sp"
             android:layout_height="64sp"
             android:src="@drawable/soter"

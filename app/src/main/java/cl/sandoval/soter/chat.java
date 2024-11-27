@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -71,13 +72,27 @@ public class chat extends AppCompatActivity {
         String text = messageInput.getText().toString().trim();
         if (TextUtils.isEmpty(text)) return;
 
-        String sender = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        // Obtener el usuario actual
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String sender = (user != null) ? user.getDisplayName() : "null";  // Si el usuario es null, asignar "null"
+
+        // Crear el mensaje
         Map<String, Object> message = new HashMap<>();
         message.put("text", text);
-        message.put("sender", sender != null ? sender : "Anónimo");
-        message.put("timestamp", System.currentTimeMillis());
+        message.put("sender", sender);
+        message.put("timestamp", com.google.firebase.firestore.FieldValue.serverTimestamp());  // Obtener la fecha/hora del servidor
 
-        db.collection("messages").add(message);
-        messageInput.setText("");
+        // Guardar el mensaje en Firestore
+        db.collection("messages").add(message)
+                .addOnSuccessListener(documentReference -> {
+                    // Si el mensaje se guardó correctamente, limpiar el campo de entrada
+                    messageInput.setText("");
+                })
+                .addOnFailureListener(e -> {
+                    // Si ocurre un error, mostrar el error
+                    e.printStackTrace();
+                });
     }
+
 }
+
