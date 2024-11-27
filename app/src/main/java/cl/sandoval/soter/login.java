@@ -28,6 +28,7 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
     private EditText inputUsuario, inputClave;
     private Button botonIniciar;
     private Button botonReset;
+    private Button botonResetPass;
     private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
 
@@ -58,6 +59,10 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
         inputClave = findViewById(R.id.inputClave);
         botonIniciar = findViewById(R.id.botonIniciar);
         botonReset = findViewById(R.id.botonNoeres);
+        botonResetPass = findViewById(R.id.botonResetPass);
+        //
+        botonResetPass.setOnClickListener(v -> recoverPassword());
+        botonReset.setOnClickListener(v -> resetSharedPreferences());
 
         // Inicializar SharedPreferences para verificar si es la primera vez
         sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
@@ -70,6 +75,7 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
             inputClave.setVisibility(EditText.GONE);
             botonIniciar.setVisibility(Button.GONE);
             botonReset.setVisibility(View.VISIBLE);
+            botonResetPass.setVisibility(View.GONE);
 
             // Esperar 1 segundos y luego intentar la autenticación biométrica
             new Handler().postDelayed(() -> biometricPrompt.authenticate(promptInfo), 1000);
@@ -79,6 +85,7 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
             inputClave.setVisibility(EditText.VISIBLE);
             botonIniciar.setVisibility(Button.VISIBLE);
             botonReset.setVisibility(View.GONE);
+            botonResetPass.setVisibility(View.VISIBLE);
 
             // Configurar el botón de iniciar sesión
             botonIniciar.setOnClickListener(v -> iniciarSesion());
@@ -159,6 +166,44 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
                     }
                 });
     }
+
+    // Función para recuperar la contraseña
+    private void recoverPassword() {
+        String email = inputUsuario.getText().toString().trim();
+
+        // Verificar que el correo no esté vacío y sea válido
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(this, "Por favor ingresa tu correo electrónico.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            Toast.makeText(this, "Por favor ingresa un correo electrónico válido.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Enviar correo de recuperación de contraseña
+        FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(this, "Te hemos enviado un correo para recuperar tu contraseña.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, "Error: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    private void resetSharedPreferences() {
+        // Limpiar todas las preferencias almacenadas
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();  // Eliminar todas las preferencias guardadas
+        editor.apply();  // Aplicar los cambios
+
+        // Mostrar un mensaje de éxito
+        Toast.makeText(this, "Sesión cerrada.", Toast.LENGTH_SHORT).show();
+        recreate();
+    }
+
 
 
     @Override

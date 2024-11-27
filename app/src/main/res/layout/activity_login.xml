@@ -87,6 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50sp"
         android:layout_gravity="center"
+        android:orientation="vertical"
         android:layout_weight="1">
         <Button
             android:id="@+id/botonNoeres"
@@ -94,13 +95,26 @@
             android:layout_height="wrap_content"
             android:background="#0082CEEC"
             android:paddingHorizontal="24dp"
-            android:layout_gravity="top"
+            android:layout_gravity="top|center"
             android:layout_marginBottom="44sp"
             android:paddingVertical="12dp"
             android:text="¿No eres tu?"
             android:hapticFeedbackEnabled="true"
             android:textColor="#3488AF"
             android:visibility="gone"
+            android:textSize="18sp" />
+        <Button
+            android:id="@+id/botonResetPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#0082CEEC"
+            android:paddingHorizontal="24dp"
+            android:layout_gravity="top"
+            android:layout_marginBottom="44sp"
+            android:paddingVertical="12dp"
+            android:text="¿Olvidaste tu contraseña?"
+            android:hapticFeedbackEnabled="true"
+            android:textColor="#3488AF"
             android:textSize="18sp" />
     </LinearLayout>
     <!-- Botón de iniciar sesión -->
