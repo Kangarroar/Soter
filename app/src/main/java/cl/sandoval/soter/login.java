@@ -3,6 +3,7 @@ package cl.sandoval.soter;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,8 +46,25 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
         // Inicializar SharedPreferences para verificar si es la primera vez
         sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
 
-        // Configurar el botón de iniciar sesión
-        botonIniciar.setOnClickListener(v -> iniciarSesion());
+        // Verificar si el usuario eligió huella dactilar anteriormente
+        boolean useFingerprint = sharedPreferences.getBoolean("useFingerprint", false);
+        if (useFingerprint) {
+            // Ocultar los campos de usuario y contraseña, y el botón de iniciar sesión
+            inputUsuario.setVisibility(EditText.GONE);
+            inputClave.setVisibility(EditText.GONE);
+            botonIniciar.setVisibility(Button.GONE);
+
+            // Esperar 2 segundos y luego intentar la autenticación biométrica
+            new Handler().postDelayed(() -> biometricPrompt.authenticate(promptInfo), 2000);
+        } else {
+            // Si no, mostrar los campos de texto y el botón de inicio de sesión
+            inputUsuario.setVisibility(EditText.VISIBLE);
+            inputClave.setVisibility(EditText.VISIBLE);
+            botonIniciar.setVisibility(Button.VISIBLE);
+
+            // Configurar el botón de iniciar sesión
+            botonIniciar.setOnClickListener(v -> iniciarSesion());
+        }
 
         // Configuración del BiometricPrompt
         executor = ContextCompat.getMainExecutor(this);
@@ -124,10 +142,18 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
     @Override
     public void onFingerprintEnabled(boolean enabled) {
         if (enabled) {
-            // El usuario quiere usar la huella, iniciar la autenticación biométrica
+            // El usuario quiere usar la huella, guardar la preferencia y proceder con la autenticación biométrica
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("useFingerprint", true);
+            editor.apply();
+
+            // Iniciar la autenticación biométrica
             biometricPrompt.authenticate(promptInfo);
         } else {
-            // Si el usuario no quiere usar la huella, pasa a la siguiente pantalla
+            // Si el usuario no quiere usar la huella, proceder normalmente
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean("useFingerprint", false);
+            editor.apply();
             startActivity(new Intent(login.this, menu_principal.class));
             finish();
         }
