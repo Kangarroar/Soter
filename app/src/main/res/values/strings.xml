@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Soter</string>
+    <string name="dialog_title">¿Usar huella dactilar?</string>
+    <string name="dialog_message">¿Quieres usar tu huella dactilar para iniciar sesión la próxima vez?</string>
+    <string name="dialog_positive">Sí</string>
+    <string name="dialog_negative">No</string>
+
 </resources>
