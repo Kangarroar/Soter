@@ -54,8 +54,8 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
             inputClave.setVisibility(EditText.GONE);
             botonIniciar.setVisibility(Button.GONE);
 
-            // Esperar 2 segundos y luego intentar la autenticación biométrica
-            new Handler().postDelayed(() -> biometricPrompt.authenticate(promptInfo), 2000);
+            // Esperar 1 segundos y luego intentar la autenticación biométrica
+            new Handler().postDelayed(() -> biometricPrompt.authenticate(promptInfo), 1000);
         } else {
             // Si no, mostrar los campos de texto y el botón de inicio de sesión
             inputUsuario.setVisibility(EditText.VISIBLE);

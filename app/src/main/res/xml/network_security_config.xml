@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <!-- Permitir tráfico sin cifrado (HTTP) para las IPs de las cámaras -->
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">50.199.215.185</domain>  <!-- IP de la cámara 1 -->
+        <domain includeSubdomains="true">50.248.1.46</domain>      <!-- IP de la cámara 2 -->
+        <domain includeSubdomains="true">200.54.42.126</domain>     <!-- IP de la cámara 3 -->
+    </domain-config>
+</network-security-config>
