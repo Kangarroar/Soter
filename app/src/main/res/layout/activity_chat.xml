@@ -3,17 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/white">
 
     <!-- Toolbar -->
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:padding="16dp"
+        android:background="@android:color/white"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         app:title="Chat"
+        app:titleMarginStart="160sp"
         app:titleTextColor="@android:color/black"
-        app:titleTextAppearance="@style/TextAppearance.AppCompat.Large" />
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
+        android:elevation="4dp"/>
 
     <!-- Chat Messages List -->
     <androidx.recyclerview.widget.RecyclerView
@@ -22,14 +28,22 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="8dp"
-        android:scrollbars="vertical" />
+        android:background="#EAEAEA"
+        android:scrollbars="vertical"
+        android:layout_marginTop="8dp"
+        android:elevation="2dp"/>
 
     <!-- Input Field -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="8dp">
+        android:padding="8dp"
+        android:background="@android:color/white"
+        android:elevation="2dp"
+        android:layout_margin="8dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_vertical">
 
         <EditText
             android:id="@+id/messageInput"
@@ -38,12 +52,107 @@
             android:layout_weight="1"
             android:hint="Escribe un mensaje"
             android:background="@drawable/rounded_rectangle"
-            android:padding="12dp" />
+            android:padding="12dp"
+            android:textColor="@android:color/black"
+            android:textColorHint="@android:color/black"
+            android:layout_marginEnd="8dp"
+            android:gravity="start|center_vertical" />
 
         <Button
             android:id="@+id/sendButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Enviar" />
+            android:text="Enviar"
+            android:textColor="@android:color/white"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:layout_gravity="center_vertical"/>
     </LinearLayout>
+
+    <!-- Barra de navegación inferior personalizada -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Sombra hacia arriba -->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="@drawable/shadow_top" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:orientation="horizontal"
+            android:paddingVertical="8dp">
+
+            <!-- Item Cámaras -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageButton
+                    android:id="@+id/camerajump"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_cameras"
+                    app:tint="@color/selector_bottom_nav" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Cámaras"
+                    android:textColor="@color/selector_bottom_nav"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <!-- Item Seguridad -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/soteralertbutt"
+                    android:layout_width="46dp"
+                    android:layout_height="46dp"
+                    android:src="@drawable/soter" />
+            </LinearLayout>
+
+            <!-- Item Mi App -->
+            <LinearLayout
+                android:id="@+id/chat"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <ImageView
+                    android:id="@+id/hiddenbutt"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_chat"
+                    app:tint="@color/selector_bottom_nav" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Chat"
+                    android:textColor="@color/selector_bottom_nav"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

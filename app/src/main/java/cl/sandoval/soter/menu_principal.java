@@ -1,8 +1,12 @@
 package cl.sandoval.soter;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -21,16 +25,19 @@ public class menu_principal extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_menu_principal);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(Color.parseColor("#FF3488AF")); //
+        }
+
         // Referencias a los elementos del layout
         saludoTextView = findViewById(R.id.saludo);
 
-        // Configuración del saludo personalizado según la hora
-        setSaludoPersonalizado();
 
 
-        // CamaraJumper
+    // CamaraJumper
         ImageButton CamaraJumper = findViewById(R.id.camerajump);
         CamaraJumper.setOnClickListener(new View.OnClickListener() {
             @Override

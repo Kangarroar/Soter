@@ -6,19 +6,32 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical">
-
-    <!-- Toolbar para el título -->
+    <!-- Imagen decorativa con los triángulos -->
+    <ImageView
+        android:id="@+id/decorative_image"
+        android:layout_width="match_parent"
+        android:layout_height="100px"
+        android:src="@drawable/swat"
+        android:scaleType="fitStart"
+        android:layout_gravity="top|start"
+    />
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:background="@android:color/transparent"
         android:elevation="4dp"
-        android:padding="16dp"
+        android:padding="0dp"
         app:navigationIcon="@null">
+
+    <!-- FrameLayout que contendrá la imagen de fondo y los elementos del Toolbar -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Fondo decorativo (imagen PNG) con los triángulos del color del notch -->
 
         <!-- Logo de la app -->
         <ImageView
-            android:id="@+id/hiddenbutt"
             android:layout_width="64sp"
             android:layout_height="64sp"
             android:src="@drawable/soter"
@@ -44,13 +57,17 @@
             android:textColor="@android:color/black"
             android:textSize="22sp"
             android:textStyle="bold" />
-    </androidx.appcompat.widget.Toolbar>
+    </FrameLayout>
+</androidx.appcompat.widget.Toolbar>
+
+
 
     <!-- Contenido principal con ScrollView -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
+        android:layout_marginTop="20sp"
         android:background="#FFFFFF"
         android:padding="16dp">
 
@@ -187,6 +204,7 @@
 
             <!-- Item Mi App -->
             <LinearLayout
+                android:id="@+id/chat"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -195,15 +213,16 @@
                 android:padding="8dp">
 
                 <ImageView
+                    android:id="@+id/hiddenbutt"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_mi_app"
+                    android:src="@drawable/ic_chat"
                     app:tint="@color/selector_bottom_nav" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Mi App"
+                    android:text="Chat"
                     android:textColor="@color/selector_bottom_nav"
                     android:textSize="12sp" />
             </LinearLayout>
