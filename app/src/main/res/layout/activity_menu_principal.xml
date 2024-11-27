@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,7 +14,7 @@
         android:background="@color/white"
         android:elevation="4dp"
         android:padding="16dp"
-        app:navigationIcon="@null"> <!-- Sin icono de navegación -->
+        app:navigationIcon="@null">
 
         <!-- Logo de la app -->
         <ImageView
@@ -21,17 +22,34 @@
             android:layout_height="64sp"
             android:src="@drawable/soter"
             android:layout_gravity="start"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp" />
 
+        <ImageView
+            android:id="@+id/alertanotifbutt"
+            android:layout_width="34sp"
+            android:layout_height="34sp"
+            android:src="@drawable/ic_avisos"
+            android:layout_gravity="end"
+            app:tint="@color/selector_bottom_nav"
+            android:layout_marginEnd="8dp"/>
+
+        <!-- Nombre del Condominio -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Soter"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@android:color/black"
+            android:textSize="22sp"
+            android:textStyle="bold" />
     </androidx.appcompat.widget.Toolbar>
-
-
 
     <!-- Contenido principal con ScrollView -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:background="#FFFFFF"
         android:padding="16dp">
 
@@ -40,18 +58,70 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:orientation="vertical">
+
+            <!-- Saludo Personalizado -->
+            <TextView
+                android:id="@+id/saludo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Buenas tardes"
+                android:textStyle="bold"
+                android:textColor="#3488AF"
+                android:textSize="24sp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Buenas tardes!"
-                android:textColor="#3488AF"
-                android:textSize="24sp">
+                android:text="¡Bienvenido a la aplicación de seguridad del condominio!"
+                android:textSize="20sp"
+                android:layout_marginTop="24dp"
+                android:textStyle="bold"
+                android:gravity="center_horizontal"
+                android:padding="16dp" />
 
-            </TextView>
+
 
         </LinearLayout>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:background="#FFFFFF"
+        android:padding="16dp">
+        <!-- Instrucciones Básicas -->
+        <TextView
+            android:id="@+id/instrucciones"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Utilice el menú inferior para acceder a las cámaras, ver avisos importantes, o revisar la configuración de la app."
+            android:textSize="14sp"
+            android:layout_marginTop="24dp"
+            android:textStyle="bold"
+            android:gravity="center_horizontal"
+            android:padding="16dp" />
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#FFFFFF"
+        android:padding="16dp">
+        <!-- Contacto de Seguridad -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="En caso de emergencia, llame a la seguridad del condominio al: +56 9 1234 5678"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal"
+            android:padding="8dp"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+    <!-- Barra de navegación inferior personalizada -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -61,9 +131,8 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="8dp"
-            android:background="@drawable/shadow_top" />  <!-- Agregamos la sombra hacia arriba -->
+            android:background="@drawable/shadow_top" />
 
-        <!-- Barra de navegación inferior personalizada -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,6 +141,8 @@
             android:paddingVertical="8dp">
 
             <!-- Item Inicio -->
+
+            <!-- Item Cámaras -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -80,30 +151,8 @@
                 android:orientation="vertical"
                 android:padding="8dp">
 
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_inicio"
-                    app:tint="@color/selector_bottom_nav" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Inicio"
-                    android:textColor="@color/selector_bottom_nav"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <!-- Item Finanzas -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <ImageView
+                <ImageButton
+                    android:id="@+id/camerajump"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_cameras"
@@ -112,7 +161,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Camaras"
+                    android:text="Cámaras"
                     android:textColor="@color/selector_bottom_nav"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -127,33 +176,13 @@
                 android:padding="8dp">
 
                 <ImageView
+                    android:id="@+id/soteralertbutt"
                     android:layout_width="46dp"
                     android:layout_height="46dp"
                     android:src="@drawable/soter" />
             </LinearLayout>
 
-            <!-- Item Documentos -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/ic_avisos"
-                    app:tint="@color/selector_bottom_nav" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Avisos"
-                    android:textColor="@color/selector_bottom_nav"
-                    android:textSize="12sp" />
-            </LinearLayout>
+            <!-- Item Avisos -->
 
             <!-- Item Mi App -->
             <LinearLayout
@@ -177,9 +206,6 @@
                     android:textColor="@color/selector_bottom_nav"
                     android:textSize="12sp" />
             </LinearLayout>
-
         </LinearLayout>
-
     </LinearLayout>
-
 </LinearLayout>
