@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -26,6 +27,7 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
 
     private EditText inputUsuario, inputClave;
     private Button botonIniciar;
+    private Button botonReset;
     private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
 
@@ -55,6 +57,7 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
         inputUsuario = findViewById(R.id.inputUsuario);
         inputClave = findViewById(R.id.inputClave);
         botonIniciar = findViewById(R.id.botonIniciar);
+        botonReset = findViewById(R.id.botonNoeres);
 
         // Inicializar SharedPreferences para verificar si es la primera vez
         sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
@@ -66,6 +69,7 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
             inputUsuario.setVisibility(EditText.GONE);
             inputClave.setVisibility(EditText.GONE);
             botonIniciar.setVisibility(Button.GONE);
+            botonReset.setVisibility(View.VISIBLE);
 
             // Esperar 1 segundos y luego intentar la autenticación biométrica
             new Handler().postDelayed(() -> biometricPrompt.authenticate(promptInfo), 1000);
@@ -74,6 +78,7 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
             inputUsuario.setVisibility(EditText.VISIBLE);
             inputClave.setVisibility(EditText.VISIBLE);
             botonIniciar.setVisibility(Button.VISIBLE);
+            botonReset.setVisibility(View.GONE);
 
             // Configurar el botón de iniciar sesión
             botonIniciar.setOnClickListener(v -> iniciarSesion());
@@ -135,22 +140,26 @@ public class login extends AppCompatActivity implements FingerprintDialogFragmen
                         FirebaseUser user = mAuth.getCurrentUser();
                         if (user != null) {
                             String username = getUsernameFromEmail(user.getEmail());
+
+                            // Guardar el username en SharedPreferences
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("username", username);
+                            editor.apply();
+
                             Toast.makeText(login.this, "Bienvenido, " + username, Toast.LENGTH_SHORT).show();
 
-                            // Verificar si es la primera vez que el usuario inicia sesión
                             boolean isFirstLogin = sharedPreferences.getBoolean("isFirstLogin", true);
                             if (isFirstLogin) {
-                                // Mostrar el diálogo de huella
                                 FingerprintDialogFragment dialog = new FingerprintDialogFragment();
                                 dialog.show(getSupportFragmentManager(), "FingerprintDialog");
                             }
                         }
                     } else {
-                        // Error de autenticación
                         Toast.makeText(login.this, "Error de autenticación: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                     }
                 });
     }
+
 
     @Override
     public void onFingerprintEnabled(boolean enabled) {

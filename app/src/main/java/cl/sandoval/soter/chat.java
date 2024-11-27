@@ -1,4 +1,5 @@
 package cl.sandoval.soter;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -80,15 +81,15 @@ public class chat extends AppCompatActivity {
         String text = messageInput.getText().toString().trim();
         if (TextUtils.isEmpty(text)) return;
 
-        // Obtener el usuario actual
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String sender = (user != null) ? user.getDisplayName() : "null";  // Si el usuario es null, asignar "null"
+        // Obtener el username desde SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", MODE_PRIVATE);
+        String sender = sharedPreferences.getString("username", "null"); // Si no existe, usar "null"
 
         // Crear el mensaje
         Map<String, Object> message = new HashMap<>();
         message.put("text", text);
         message.put("sender", sender);
-        message.put("timestamp", com.google.firebase.firestore.FieldValue.serverTimestamp());  // Obtener la fecha/hora del servidor
+        message.put("timestamp", com.google.firebase.firestore.FieldValue.serverTimestamp()); // Obtener la fecha/hora del servidor
 
         // Guardar el mensaje en Firestore
         db.collection("messages").add(message)
@@ -101,6 +102,5 @@ public class chat extends AppCompatActivity {
                     e.printStackTrace();
                 });
     }
-
 }
 
